@@ -17,7 +17,7 @@ object MyApp extends JFXApp{
 
   //initialize stage
   stage = new PrimaryStage {
-    title = "Kopitiam"
+    title = "Roti Maker"
     scene = new Scene {
       root = roots
     }

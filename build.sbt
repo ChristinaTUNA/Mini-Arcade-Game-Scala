@@ -4,7 +4,8 @@ ThisBuild / scalaVersion := "2.12.19"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "KopitiamDriveTHRU",
+    name := "Roti Maker" +
+      "",
     libraryDependencies ++= Seq(
       "org.scalafx" %% "scalafx" % "8.0.192-R14",
       "org.scalafx" %% "scalafxml-core-sfx8" % "0.5",
