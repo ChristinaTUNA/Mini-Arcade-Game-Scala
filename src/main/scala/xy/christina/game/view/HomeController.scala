@@ -1,15 +1,16 @@
 package xy.christina.game.view
 
+import scalafx.event.ActionEvent
 import scalafxml.core.macros.sfxml
 import xy.christina.game.MyApp
 
 @sfxml
 class HomeController {
-  def handleStartGame(): ={
-    MyApp.showGamePage()
+  def handleStartGame(action: ActionEvent) ={
+     MyApp.showGamePage()
   }
 
-  def handleViewScores(): ={
-    MyApp.showScorePage()
-  }
+//  def handleViewScores(): ={
+//    MyApp.showScorePage()
+//  }
 }

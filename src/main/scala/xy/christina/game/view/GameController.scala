@@ -8,7 +8,7 @@ class GameController {
   val player = Player("Player",0)
   val game = new Game(player)
 
-  def initialize(): ={
-    game.start()
-  }
+//  def initialize(): ={
+//    game.start()
+//  }
 }
