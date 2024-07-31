@@ -5,12 +5,11 @@ import scalafxml.core.macros.sfxml
 import xy.christina.game.MyApp
 
 @sfxml
-class HomeController {
-  def handleStartGame(action: ActionEvent) ={
-     MyApp.showGamePage()
+class RootLayoutController {
+  def handleQuitGame(action : ActionEvent){
+    MyApp.showHomePage()
   }
-
-//  def handleInstruction(action: ActionEvent)={
+//  def handlePauseGame(action: ActionEvent){
 //
 //  }
 }

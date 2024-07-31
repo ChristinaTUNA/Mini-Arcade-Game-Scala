@@ -2,42 +2,42 @@ package xy.christina.game.model
 
 import scala.collection.mutable.ListBuffer
 
-class Game (player: Player){
+class Game {
+  private var score = 0
+  private var lives = 3
+  private var recipes = Recipe.allRecipes
+  private var currentRecipe = recipes.head
+  private var currentInput = ListBuffer[String]()
 
-  private var currentRecipe: Option[Recipe] = None
-  private val inputSequence = ListBuffer[Ingredient]()
-  def startNewGame(): Unit = {
-    currentRecipe = Some(Recipes.bread) // For simplicity, start with bread. You can randomize or choose another way to select recipes.
-    inputSequence.clear()
-    println(s"New game started. Recipe: ${currentRecipe.get.name}")
-  }
+  def getCurrentRecipe: Recipe = currentRecipe
 
-  def handleInput(key: String): Unit = {
-    val ingredient = key match {
-      case "Up" => Flour
-      case "Down" => Milk
-      case "Left" => Egg
-      case "Right" => Butter
-      case "W" => Cream
-      case "A" => Chocolate
-      case "S" => Blueberry
-      case "D" => Strawberry
-      case _ => return
-    }
+  def getLives: Int = lives
 
-    inputSequence += ingredient
-    println(s"Input: $key (${ingredient.toString}), Current Sequence: ${inputSequence.map(_.toString).mkString(", ")}")
-
-    checkSequence()
-  }
-
-  private def checkSequence(): Unit = {
-    if (currentRecipe.isDefined && inputSequence == currentRecipe.get.ingredients) {
-      println(s"Correct! You've made ${currentRecipe.get.name}")
-      startNewGame() // Start a new game or proceed to the next recipe
-    } else if (inputSequence.length >= currentRecipe.get.ingredients.length) {
-      println("Incorrect sequence. Try again!")
-      inputSequence.clear() // Clear sequence and try again
+  def handleInput(ingredient: String): Boolean = {
+    currentInput += ingredient
+    val recipeInput = currentRecipe.ingredients.flatMap { case (ing, qty) => List.fill(qty)(ing) }
+    if (currentInput == recipeInput.take(currentInput.size)) {
+      if (currentInput.size == recipeInput.size) {
+        score += 10
+        currentInput.clear()
+        switchToNextRecipe()
+        true // Successfully completed the recipe
+      } else {
+        false // Still matching the recipe
+      }
+    } else {
+      println("wrong input")
+      lives -= 1
+      currentInput.clear() // Reset on wrong input
+      false
     }
   }
+
+  def getScore: Int = score
+
+  private def switchToNextRecipe(): Unit = {
+    currentRecipe = recipes((recipes.indexOf(currentRecipe) + 1) % recipes.size)
+  }
+
+  def isGameOver: Boolean = lives <= 0
 }

@@ -1,5 +1,3 @@
 package xy.christina.game.model
 
-case class Player(name: String, var score: Int) {
-
-}
+case class Player(name: String, var score: Int, var lives: Int)
