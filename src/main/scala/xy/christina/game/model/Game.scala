@@ -13,6 +13,8 @@ class Game {
 
   def getLives: Int = lives
 
+  def getScore: Int = score
+
   def handleInput(ingredient: String): Boolean = {
     currentInput += ingredient
     val recipeInput = currentRecipe.ingredients.flatMap { case (ing, qty) => List.fill(qty)(ing) }
@@ -27,14 +29,15 @@ class Game {
       }
     } else {
       println("wrong input")
-      lives -= 1
+      reduceLife()
       currentInput.clear() // Reset on wrong input
       false
     }
   }
 
-  def getScore: Int = score
-
+  private def reduceLife(): Unit = {
+    lives -= 1
+  }
   private def switchToNextRecipe(): Unit = {
     currentRecipe = recipes((recipes.indexOf(currentRecipe) + 1) % recipes.size)
   }

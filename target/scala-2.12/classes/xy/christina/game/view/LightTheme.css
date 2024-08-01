@@ -1,0 +1,17 @@
+.home-background {
+    -fx-background-image: url("/images/home_bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.game-background {
+    -fx-background-image: url("/images/game_bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.scores-background {
+    -fx-background-image: url("/images/scores_bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
