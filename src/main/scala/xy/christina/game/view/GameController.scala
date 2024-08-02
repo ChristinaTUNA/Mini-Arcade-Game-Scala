@@ -41,11 +41,10 @@ class GameController(
   )
 
   def initialize(): Unit = {
-    updateView()
-
     setupButtonEvents()
     setupKeyEvents()
     setupFocusListener()
+    updateView()
     rootPane.requestFocus() // Ensure the rootPane is focusable
   }
 
@@ -68,7 +67,7 @@ class GameController(
 
   // Setup to ensure the rootPane retains focus
   private def setupFocusListener(): Unit = {
-    rootPane.focusedProperty().addListener { (_, oldValue, newValue) =>
+    rootPane.focusedProperty().addListener { (_, _, newValue) =>
       if (!newValue) {
         rootPane.requestFocus()
       }
@@ -78,7 +77,6 @@ class GameController(
   // Handle key events to simulate button press
   private def handleKeyEvent(event: KeyEvent): Unit = {
     println(s"Key Pressed: ${event.code}") // Debug print
-    updateCurrentInputGrid()
     event.code match {
       case KeyCode.Up => handleInput("Flour")
       case KeyCode.Down => handleInput("Egg")
@@ -94,44 +92,41 @@ class GameController(
 
   // Handle input for ingredients
   private def handleInput(ingredient: String): Unit = {
-    currentInput = (currentInput :+ ingredient).takeRight(maxInputSize)
-    println(currentInput)
     updateCurrentInputGrid()
-    if (game.handleInput(ingredient)) {
-
-      if (game.isGameOver) {
-        gameOver()
-      } else {
-        updateView()
-      }
+    if (game.isGameOver) {
+      gameOver()
     } else {
-      if (game.getLives <= 0) {
-        gameOver()
-      } else {
+      if (!game.handleInput(ingredient)) {
         updateView()
       }
+      updateCurrentInputGrid()
+      updateView()
     }
   }
 
   // Update the current input grid with images
   private def updateCurrentInputGrid(): Unit = {
     currentInputGrid.getChildren.clear()
-    currentInput.zipWithIndex.foreach { case (ingredient, index) =>
+    game.getCurrentInput.zipWithIndex.foreach { case (ingredient, index) =>
       val imageView = new ImageView(ingredientImages(ingredient))
-      imageView.fitWidth = 32
-      imageView.fitHeight = 28
+      imageView.fitWidth = 30
+      imageView.fitHeight = 30
       currentInputGrid.add(imageView, index, 0)
     }
   }
+
 
   // Update the view with the latest game state
   private def updateView(): Unit = {
     scoreLabel.text = s"Score: ${game.getScore}"
     recipeLabel.text = s"${game.getCurrentRecipe.name}"
     lifeLabel.text = s"Lives: ${game.getLives}"
+    updateIngredientGrid()
+  }
+
+  // Update the ingredient grid
+  private def updateIngredientGrid(): Unit = {
     ingredientGrid.getChildren.clear()
-
-
     game.getCurrentRecipe.ingredients.zipWithIndex.foreach { case ((ingredient, quantity), index) =>
       val row = index
       val col1 = new Label(s"x$quantity")
