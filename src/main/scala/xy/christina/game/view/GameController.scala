@@ -1,12 +1,15 @@
 package xy.christina.game.view
 
 import scalafx.Includes._
+import scalafx.animation.{KeyFrame, Timeline}
 import scalafx.scene.control.{Button, Label}
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.scene.layout.{AnchorPane, GridPane}
+import scalafx.util.Duration
 import scalafxml.core.macros.sfxml
 import xy.christina.game.model.Game
+
 
 @sfxml
 class GameController(
@@ -16,6 +19,7 @@ class GameController(
                       private val ingredientGrid: GridPane,
                       private val currentInputGrid: GridPane,
                       private val lifeLabel: Label,
+                      private val timerLabel: Label,
                       private val upButton: Button,
                       private val downButton: Button,
                       private val leftButton: Button,
@@ -26,8 +30,6 @@ class GameController(
                       private val dButton: Button
                     ) {
   private val game = new Game()
-  private var currentInput = List[String]()
-  private val maxInputSize = 5
 
   private val ingredientImages = Map(
     "Flour" -> new Image("image/flour.png"),
@@ -40,12 +42,32 @@ class GameController(
     "Strawberry" -> new Image("image/strawberry.png")
   )
 
+  private val timeline = new Timeline {
+    cycleCount = Timeline.Indefinite
+    keyFrames = Seq(
+      KeyFrame(Duration(1000), onFinished = _ => {
+        game.tickTimer()
+        updateTimerLabel()
+        updateView()
+        if (game.isGameOver) {
+          gameOver()
+        }
+      })
+    )
+  }
+
+  // Update the timer label
+  private def updateTimerLabel(): Unit = {
+    timerLabel.text = s"${game.getTimer}"
+  }
+
   def initialize(): Unit = {
     setupButtonEvents()
     setupKeyEvents()
     setupFocusListener()
-    updateView()
     rootPane.requestFocus() // Ensure the rootPane is focusable
+    timeline.play() // Start the timer
+    updateView()
   }
 
   // Setup for button click events
@@ -115,13 +137,13 @@ class GameController(
     }
   }
 
-
   // Update the view with the latest game state
   private def updateView(): Unit = {
     scoreLabel.text = s"Score: ${game.getScore}"
     recipeLabel.text = s"${game.getCurrentRecipe.name}"
     lifeLabel.text = s"Lives: ${game.getLives}"
     updateIngredientGrid()
+    updateTimerLabel()
   }
 
   // Update the ingredient grid
@@ -141,5 +163,6 @@ class GameController(
     scoreLabel.text = "Game Over"
     scoreLabel.style = "-fx-text-fill: red; -fx-font-size: 24px;"
     rootPane.disable = true // Disable further interaction
+    timeline.stop() // Stop the timer
   }
 }

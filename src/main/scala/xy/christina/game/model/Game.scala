@@ -8,11 +8,13 @@ class Game {
   private val recipes = Recipe.allRecipes
   private var currentRecipe = recipes.head
   private val currentInput = ListBuffer[String]()
+  private var timer: Int = 10 // Initial time for each recipe
 
   def getCurrentRecipe: Recipe = currentRecipe
   def getLives: Int = lives
   def getScore: Int = score
   def getCurrentInput: List[String] = currentInput.toList
+  def getTimer: Int = timer
 
   def handleInput(ingredient: String): Boolean = {
     currentInput += ingredient
@@ -47,17 +49,22 @@ class Game {
   }
 
   private def handleIncorrectInput(): Unit = {
-    reduceLife()
+    lives -= 1
     currentInput.clear()
     switchToNextRecipe()
   }
 
-  private def reduceLife(): Unit = {
-    lives -= 1
-  }
 
   private def switchToNextRecipe(): Unit = {
     currentRecipe = recipes((recipes.indexOf(currentRecipe) + 1) % recipes.size)
+    timer = 10 // Reset timer for the new recipe
+  }
+
+  def tickTimer(): Unit = {
+    timer -= 1
+    if (timer <= 0) {
+      handleIncorrectInput()
+    }
   }
 
   def isGameOver: Boolean = lives <= 0
