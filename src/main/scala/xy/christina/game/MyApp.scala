@@ -50,6 +50,16 @@ object MyApp extends JFXApp{
 //    contentPane.getChildren.clear()
 //    contentPane.getChildren.add(scorePage)
 //  }
+
+def showInstruction(): Unit = {
+  val resource = getClass.getResource("view/Instruction.fxml")
+  val loader = new FXMLLoader(resource, NoDependencyResolver)
+  loader.load()
+  val howToPlayPage = loader.getRoot[jfxs.Parent]
+//  val control = loader.getController[GameController#Controller]
+  this.roots.setCenter(howToPlayPage)
+//  control.initialize()
+}
   // call to display HomePage when app start
   showHomePage()
 }

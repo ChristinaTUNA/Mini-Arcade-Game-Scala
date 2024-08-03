@@ -18,6 +18,7 @@ class GameController(
                       private val recipeLabel: Label,
                       private val ingredientGrid: GridPane,
                       private val currentInputGrid: GridPane,
+                      private val displayRecipeGrid: GridPane,
                       private val lifeLabel: Label,
                       private val timerLabel: Label,
                       private val upButton: Button,
@@ -40,6 +41,12 @@ class GameController(
     "Chocolate" -> new Image("image/choco.png"),
     "Blueberry" -> new Image("image/blueberry.png"),
     "Strawberry" -> new Image("image/strawberry.png")
+  )
+
+  private val RecipeImages = Map(
+    "Bread" -> new Image("image/bread1.png"),
+    "Cake" -> new Image("image/strawberryShortcake.png"),
+    "Egg Tart" -> new Image("image/eggtart.png")
   )
 
   private val timeline = new Timeline {
@@ -114,16 +121,44 @@ class GameController(
 
   // Handle input for ingredients
   private def handleInput(ingredient: String): Unit = {
+    val isCorrect = game.handleInput(ingredient)
     updateCurrentInputGrid()
     if (game.isGameOver) {
       gameOver()
     } else {
-      if (!game.handleInput(ingredient)) {
+      if (isCorrect) {
+        displayRecipeImage()
+
+        // Use a Timeline to hide the recipe image after 2 seconds
+        val hideTimeline = new Timeline {
+          cycleCount = 1
+          keyFrames = Seq(
+            KeyFrame(Duration(800), onFinished = _ => {
+              hideRecipeImage()
+              game.switchToNextRecipe()
+              updateCurrentInputGrid()
+              updateView()
+            })
+          )
+        }
+        hideTimeline.play()
+      } else {
+        updateCurrentInputGrid()
         updateView()
       }
-      updateCurrentInputGrid()
-      updateView()
     }
+  }
+
+  private def displayRecipeImage(): Unit = {
+    val recipeImage = new ImageView(RecipeImages(game.getCurrentRecipe.name))
+    recipeImage.fitWidth = 100
+    recipeImage.fitHeight = 100
+    displayRecipeGrid.getChildren.clear()
+    displayRecipeGrid.add(recipeImage, 0, 0)
+  }
+
+  private def hideRecipeImage(): Unit = {
+    displayRecipeGrid.getChildren.clear()
   }
 
   // Update the current input grid with images
@@ -134,6 +169,7 @@ class GameController(
       imageView.fitWidth = 30
       imageView.fitHeight = 30
       currentInputGrid.add(imageView, index, 0)
+      println(index)
     }
   }
 
@@ -144,11 +180,13 @@ class GameController(
     lifeLabel.text = s"Lives: ${game.getLives}"
     updateIngredientGrid()
     updateTimerLabel()
+
   }
 
   // Update the ingredient grid
   private def updateIngredientGrid(): Unit = {
     ingredientGrid.getChildren.clear()
+    ingredientGrid.style = "-fx-font-size: 17px"
     game.getCurrentRecipe.ingredients.zipWithIndex.foreach { case ((ingredient, quantity), index) =>
       val row = index
       val col1 = new Label(s"x$quantity")

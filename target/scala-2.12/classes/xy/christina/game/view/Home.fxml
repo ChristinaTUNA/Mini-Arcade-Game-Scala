@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xy.christina.game.view.HomeController">
    <children>
@@ -19,8 +20,14 @@
       </Pane>
       <Pane layoutY="222.0" prefHeight="128.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="279.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleStartGame" text="PLAY" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="253.0" layoutY="64.0" mnemonicParsing="false" text="HOW TO PLAY" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleInstruction" text="HOW TO PLAY">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="12.0" />
+               </font></Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleStartGame" text="PLAY">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="12.0" />
+               </font></Button>
          </children>
       </Pane>
    </children>

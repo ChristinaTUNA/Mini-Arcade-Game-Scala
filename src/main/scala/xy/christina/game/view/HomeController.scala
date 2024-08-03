@@ -10,7 +10,7 @@ class HomeController {
      MyApp.showGamePage()
   }
 
-//  def handleInstruction(action: ActionEvent)={
-//
-//  }
+  def handleInstruction(action: ActionEvent)={
+    MyApp.showInstruction()
+  }
 }

@@ -23,11 +23,9 @@ class Game {
 
     if (isInputCorrect(recipeInput)) {
       if (currentInput.size == recipeInput.size) {
-        completeRecipe()
+        handleCorrectInput()
         true
-      } else {
-        false
-      }
+      } else false
     } else {
       handleIncorrectInput()
       false
@@ -42,20 +40,18 @@ class Game {
     currentInput == recipeInput.take(currentInput.size)
   }
 
-  private def completeRecipe(): Unit = {
+  private def handleCorrectInput(): Unit = {
     score += 10
     currentInput.clear()
-    switchToNextRecipe()
   }
 
   private def handleIncorrectInput(): Unit = {
     lives -= 1
     currentInput.clear()
-    switchToNextRecipe()
   }
 
 
-  private def switchToNextRecipe(): Unit = {
+  def switchToNextRecipe(): Unit = {
     currentRecipe = recipes((recipes.indexOf(currentRecipe) + 1) % recipes.size)
     timer = 10 // Reset timer for the new recipe
   }
@@ -68,4 +64,5 @@ class Game {
   }
 
   def isGameOver: Boolean = lives <= 0
+
 }
