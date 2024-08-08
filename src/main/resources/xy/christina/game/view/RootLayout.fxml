@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xy.christina.game.view.RootLayoutController">
+<BorderPane fx:id="rootLayout" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xy.christina.game.view.RootLayoutController">
    <bottom>
-      <ButtonBar buttonMinWidth="30.0" prefHeight="53.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <ButtonBar fx:id="buttonBar" buttonMinWidth="30.0" prefHeight="50.0" prefWidth="600.0" stylesheets="@LightTheme.css" BorderPane.alignment="CENTER">
         <buttons>
-            <Button contentDisplay="CENTER" lineSpacing="10.0" minWidth="49.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="30.0" text="PAUSE" textAlignment="CENTER">
+            <Button contentDisplay="CENTER" lineSpacing="10.0" minWidth="49.0" mnemonicParsing="false" text="PAUSE" textAlignment="CENTER">
                <font>
                   <Font name="Century Schoolbook" size="12.0" />
                </font></Button>

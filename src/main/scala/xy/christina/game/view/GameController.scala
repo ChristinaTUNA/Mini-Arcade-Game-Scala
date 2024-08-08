@@ -169,7 +169,6 @@ class GameController(
       imageView.fitWidth = 30
       imageView.fitHeight = 30
       currentInputGrid.add(imageView, index, 0)
-      println(index)
     }
   }
 

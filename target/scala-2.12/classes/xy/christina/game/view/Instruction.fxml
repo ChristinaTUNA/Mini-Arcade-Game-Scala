@@ -4,15 +4,18 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane layoutX="14.0" layoutY="21.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Controls" />
-          <Tab text="How to Play" />
-            <Tab text="Tips n Tricks" />
-            <Tab text="Scoring" />
+          <Tab text="How to Play 1/2">
+               <content>
+                  <AnchorPane fx:id="howToPlay1" prefHeight="350.0" prefWidth="600.0" />
+               </content></Tab>
+          <Tab text="How to Play 2/2">
+               <content>
+                  <AnchorPane fx:id="howToPlay2" prefHeight="350.0" prefWidth="600.0" />
+               </content></Tab>
         </tabs>
       </TabPane>
    </children>

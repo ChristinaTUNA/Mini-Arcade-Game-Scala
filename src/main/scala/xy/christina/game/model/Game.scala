@@ -48,6 +48,7 @@ class Game {
   private def handleIncorrectInput(): Unit = {
     lives -= 1
     currentInput.clear()
+    timer = 10
   }
 
 

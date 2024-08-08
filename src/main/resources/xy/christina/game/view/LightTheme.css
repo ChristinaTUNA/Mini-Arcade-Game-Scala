@@ -1,17 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
 .home-background {
-    -fx-background-image: url("/images/home_bg.jpg");
+    -fx-background-image: url("/image/test2.gif");
     -fx-background-size: cover;
     -fx-background-position: center center;
+}
+
+#howToPlay1 {
+    -fx-background-image: url("/image/instruction1.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+#howToPlay2 {
+    -fx-background-image: url("/image/instruction2.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-font-family: 'Press Start 2P', monospace;
+    -fx-font-size: 12px;
+    -fx-text-fill: #4f4f4f; /* Soft gray */
+    -fx-padding: 0px 10px;
 }
 
 .game-background {
-    -fx-background-image: url("/images/game_bg.jpg");
+    -fx-background-image: url("/image/game-bg.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
-.scores-background {
-    -fx-background-image: url("/images/scores_bg.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
+/* Label styles */
+.label, .root {
+    -fx-font-family: 'Press Start 2P', monospace;
+    -fx-font-size: 9px;
+    -fx-text-fill: #4f4f4f; /* Soft gray */
+}
+
+/* Score and Timer Label styles */
+#scoreLabel, #timerLabel, #lifeLabel {
+    -fx-background-color: #ffebb6; /* Pastel yellow */
+    -fx-border-color: #ffcc99; /* Soft pastel border */
+    -fx-border-width: 2px;
+    -fx-padding: 7px 15px;
+    -fx-font-size: 11px;
+}
+
+#timerLabel {
+    -fx-border-radius: 50px; /* Rounded corners for a softer look */
+    -fx-background-radius: 50px;
+}
+
+/* Recipe Label style */
+#recipeLabel {
+    -fx-background-color: #ffd1dc; /* Pastel pink */
+    -fx-border-color: #ff99ac; /* Pastel pink border */
+    -fx-border-width: 2px;
+    -fx-padding: 2px 15px;
+    -fx-text-fill: #4f4f4f; /* Soft gray */
+    -fx-font-size: 13px;
+}
+
+/* GridPane styles */
+.grid-pane {
+    -fx-border-color: #b0e0e6; /* Pastel blue border */
+    -fx-border-width: 2px;
+    -fx-background-color: #f0f8ff; /* Soft pastel blue background */
+}
+
+#homePageButtons .button {
+    -fx-padding: 5px 18px;
+    -fx-font-size: 13px;
+}
+
+/* Ingredient Grid styles */
+#ingredientGrid, #currentInputGrid{
+    -fx-background-color: #ffffff; /* Light pastel gray */
+    -fx-border-color: #ffcccb; /* Pastel pink border */
+    -fx-border-width: 2px;
+    -fx-alignment: center;
+}
+
+/* Button styles */
+.button {
+    -fx-background-color: #b0e0e6; /* Pastel blue */
+    -fx-border-color: #4f4f4f; /* Soft gray border */
+    -fx-border-width: 2px;
+    -fx-text-fill: #4f4f4f; /* Soft gray */
+    -fx-font-family: 'Press Start 2P', monospace;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #add8e6; /* Lighter pastel blue on hover */
+}
+
+/* Arrow buttons */
+#upButton, #downButton, #leftButton, #rightButton {
+    -fx-background-color: #ffe4e1; /* Pastel pink */
+    -fx-border-color: #ffcccb; /* Matching border */
+}
+
+#upButton:hover, #downButton:hover, #leftButton:hover, #rightButton:hover {
+    -fx-background-color: #ffd1dc; /* Lighter pastel pink on hover */
+}
+
+/* WASD buttons */
+#wButton, #aButton, #sButton, #dButton {
+    -fx-background-color: #e6e6fa; /* Lavender for WASD buttons */
+    -fx-border-color: #d8bfd8; /* Pastel lavender border */
+}
+
+#wButton:hover, #aButton:hover, #sButton:hover, #dButton:hover {
+    -fx-background-color: #d8bfd8; /* Lighter pastel lavender on hover */
+}
+
+/* ImageView styling */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 1, 1);
+    -fx-background-color: transparent;
 }
