@@ -2,7 +2,7 @@
 
 
 .home-background {
-    -fx-background-image: url("/image/test2.gif");
+    -fx-background-image: url("/image/test2.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
@@ -35,7 +35,7 @@
 /* Label styles */
 .label, .root {
     -fx-font-family: 'Press Start 2P', monospace;
-    -fx-font-size: 9px;
+    -fx-font-size: 8px;
     -fx-text-fill: #4f4f4f; /* Soft gray */
 }
 
@@ -58,7 +58,7 @@
     -fx-background-color: #ffd1dc; /* Pastel pink */
     -fx-border-color: #ff99ac; /* Pastel pink border */
     -fx-border-width: 2px;
-    -fx-padding: 2px 15px;
+    -fx-padding: 2px 12px;
     -fx-text-fill: #4f4f4f; /* Soft gray */
     -fx-font-size: 13px;
 }

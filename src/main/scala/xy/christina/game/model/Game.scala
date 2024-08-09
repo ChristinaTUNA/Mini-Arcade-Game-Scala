@@ -1,20 +1,20 @@
 package xy.christina.game.model
 
 import scala.collection.mutable.ListBuffer
+import scala.util.Random
 
-class Game {
-  private var score = 0
-  private var lives = 3
+class Game(playerName: String) {
+  val player = new Player(playerName)
   private val recipes = Recipe.allRecipes
   private var currentRecipe = recipes.head
   private val currentInput = ListBuffer[String]()
-  private var timer: Int = 10 // Initial time for each recipe
+  private val timer = new GameTimer(10) // Initial time for each recipe
 
   def getCurrentRecipe: Recipe = currentRecipe
-  def getLives: Int = lives
-  def getScore: Int = score
+  def getLives: Int = player.lives.getLives
+  def getScore: Int = player.score.getPoints
   def getCurrentInput: List[String] = currentInput.toList
-  def getTimer: Int = timer
+  def getTimer: Int = timer.getTimeRemaining
 
   def handleInput(ingredient: String): Boolean = {
     currentInput += ingredient
@@ -33,7 +33,9 @@ class Game {
   }
 
   private def getRecipeInput: List[String] = {
-    currentRecipe.ingredients.flatMap { case (ing, qty) => List.fill(qty)(ing) }
+    currentRecipe.ingredients.flatMap { ingredient =>
+      List.fill(ingredient.quantity)(ingredient.name)
+    }
   }
 
   private def isInputCorrect(recipeInput: List[String]): Boolean = {
@@ -41,29 +43,28 @@ class Game {
   }
 
   private def handleCorrectInput(): Unit = {
-    score += 10
+    player.score.addPoints(10)
     currentInput.clear()
   }
 
   private def handleIncorrectInput(): Unit = {
-    lives -= 1
+    player.lives.loseLife()
     currentInput.clear()
-    timer = 10
+    timer.reset()
   }
 
-
   def switchToNextRecipe(): Unit = {
-    currentRecipe = recipes((recipes.indexOf(currentRecipe) + 1) % recipes.size)
-    timer = 10 // Reset timer for the new recipe
+    val randomIndex = Random.nextInt(recipes.size)
+    currentRecipe = recipes(randomIndex)
+    timer.reset() // Reset timer for the new recipe
   }
 
   def tickTimer(): Unit = {
-    timer -= 1
-    if (timer <= 0) {
+    timer.tick()
+    if (timer.isTimeUp) {
       handleIncorrectInput()
     }
   }
 
-  def isGameOver: Boolean = lives <= 0
-
+  def isGameOver: Boolean = player.lives.isDead
 }

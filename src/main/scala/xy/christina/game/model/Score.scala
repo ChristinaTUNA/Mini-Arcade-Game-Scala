@@ -1,11 +1,16 @@
 package xy.christina.game.model
 
-object Score {
-//  private val scores: mutable.Buffer[(String, Int)] = mutable.Buffer()
-//
-//  def addScore(player: Player): Unit = {
-//    scores.append((player.name, player.score))
-//  }
-//
-//  def getScores: Seq[(String, Int)] = scores.toSeq
+class Score(private var points: Int = 0) {
+
+  def addPoints(amount: Int): Unit = {
+    points += amount
+  }
+
+  def reset(): Unit = {
+    points = 0
+  }
+
+  def getPoints: Int = points
+
+  override def toString: String = s"Score: $points"
 }

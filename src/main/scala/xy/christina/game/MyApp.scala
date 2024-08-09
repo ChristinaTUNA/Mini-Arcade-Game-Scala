@@ -56,9 +56,7 @@ def showInstruction(): Unit = {
   val loader = new FXMLLoader(resource, NoDependencyResolver)
   loader.load()
   val howToPlayPage = loader.getRoot[jfxs.Parent]
-//  val control = loader.getController[GameController#Controller]
   this.roots.setCenter(howToPlayPage)
-//  control.initialize()
 }
   // call to display HomePage when app start
   showHomePage()

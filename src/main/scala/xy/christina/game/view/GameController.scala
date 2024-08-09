@@ -30,7 +30,7 @@ class GameController(
                       private val sButton: Button,
                       private val dButton: Button
                     ) {
-  private val game = new Game()
+  private val game = new Game("Player1")
 
   private val ingredientImages = Map(
     "Flour" -> new Image("image/flour.png"),
@@ -44,24 +44,34 @@ class GameController(
   )
 
   private val RecipeImages = Map(
-    "Bread" -> new Image("image/bread1.png"),
+    "Bread" -> new Image("image/loafbread.png"),
     "Cake" -> new Image("image/strawberryShortcake.png"),
-    "Egg Tart" -> new Image("image/eggtart.png")
+    "Egg Tart" -> new Image("image/eggtart.png"),
+    "Swiss Roll" -> new Image("image/SwissRoll.png"),
+    "Pie" -> new Image("image/blueberry pie.png"),
+    "Choco Cake" -> new Image("image/ChocolateCake.png"),
+    "Baguette" -> new Image("image/Baguette.png"),
+    "Bagel" -> new Image("image/bagel.png"),
   )
 
   private val timeline = new Timeline {
     cycleCount = Timeline.Indefinite
     keyFrames = Seq(
       KeyFrame(Duration(1000), onFinished = _ => {
-        game.tickTimer()
-        updateTimerLabel()
-        updateView()
-        if (game.isGameOver) {
-          gameOver()
+        if (!isPaused) { // Check if the game is not paused
+          game.tickTimer()
+          updateTimerLabel()
+          updateView()
+          if (game.isGameOver) {
+            gameOver()
+          }
         }
       })
     )
   }
+
+  private var isPaused = false
+  def getIsPaused: Boolean = isPaused
 
   // Update the timer label
   private def updateTimerLabel(): Unit = {
@@ -151,8 +161,8 @@ class GameController(
 
   private def displayRecipeImage(): Unit = {
     val recipeImage = new ImageView(RecipeImages(game.getCurrentRecipe.name))
-    recipeImage.fitWidth = 100
-    recipeImage.fitHeight = 100
+    recipeImage.fitWidth = 70
+    recipeImage.fitHeight = 70
     displayRecipeGrid.getChildren.clear()
     displayRecipeGrid.add(recipeImage, 0, 0)
   }
@@ -185,11 +195,11 @@ class GameController(
   // Update the ingredient grid
   private def updateIngredientGrid(): Unit = {
     ingredientGrid.getChildren.clear()
-    ingredientGrid.style = "-fx-font-size: 17px"
-    game.getCurrentRecipe.ingredients.zipWithIndex.foreach { case ((ingredient, quantity), index) =>
+    ingredientGrid.style = "-fx-font-size: 9px;"
+    game.getCurrentRecipe.ingredients.zipWithIndex.foreach { case (ingredient, index) =>
       val row = index
-      val col1 = new Label(s"x$quantity")
-      val col2 = new Label(ingredient)
+      val col1 = new Label(s"x${ingredient.quantity}")
+      val col2 = new Label(ingredient.name)
       ingredientGrid.add(col1, 0, row)
       ingredientGrid.add(col2, 1, row)
     }
@@ -197,9 +207,27 @@ class GameController(
 
   // Handle game over state
   private def gameOver(): Unit = {
-    scoreLabel.text = "Game Over"
-    scoreLabel.style = "-fx-text-fill: red; -fx-font-size: 24px;"
+    scoreLabel.text = s"Game Over \nScore: ${game.getScore}"
+    scoreLabel.style = "-fx-text-fill: red; -fx-font-size: 18px;"
     rootPane.disable = true // Disable further interaction
     timeline.stop() // Stop the timer
+  }
+
+  // Pause the game
+  def pauseGame(): Unit = {
+    if (!isPaused) {
+      isPaused = true
+      timeline.pause() // Pause the timeline
+      // Additional UI updates or state changes for pause can be added here
+    }
+  }
+
+  // Resume the game
+  def resumeGame(): Unit = {
+    if (isPaused) {
+      isPaused = false
+      timeline.play() // Resume the timeline
+      // Additional UI updates or state changes for resume can be added here
+    }
   }
 }

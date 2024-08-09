@@ -11,7 +11,7 @@
    <bottom>
       <ButtonBar fx:id="buttonBar" buttonMinWidth="30.0" prefHeight="50.0" prefWidth="600.0" stylesheets="@LightTheme.css" BorderPane.alignment="CENTER">
         <buttons>
-            <Button contentDisplay="CENTER" lineSpacing="10.0" minWidth="49.0" mnemonicParsing="false" text="PAUSE" textAlignment="CENTER">
+            <Button fx:id="pauseButton" contentDisplay="CENTER" lineSpacing="10.0" mnemonicParsing="false" text="PAUSE" textAlignment="CENTER">
                <font>
                   <Font name="Century Schoolbook" size="12.0" />
                </font></Button>
