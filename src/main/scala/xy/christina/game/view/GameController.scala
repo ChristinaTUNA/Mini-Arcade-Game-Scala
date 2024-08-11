@@ -28,7 +28,7 @@ class GameController(
                       private val wButton: Button,
                       private val aButton: Button,
                       private val sButton: Button,
-                      private val dButton: Button
+                      private val dButton: Button,
                     ) {
   private val game = new Game("Player1")
 
@@ -58,20 +58,15 @@ class GameController(
     cycleCount = Timeline.Indefinite
     keyFrames = Seq(
       KeyFrame(Duration(1000), onFinished = _ => {
-        if (!isPaused) { // Check if the game is not paused
-          game.tickTimer()
-          updateTimerLabel()
-          updateView()
-          if (game.isGameOver) {
-            gameOver()
-          }
+        game.tickTimer()
+        updateTimerLabel()
+        updateView()
+        if (game.isGameOver) {
+          gameOver()
         }
       })
     )
   }
-
-  private var isPaused = false
-  def getIsPaused: Boolean = isPaused
 
   // Update the timer label
   private def updateTimerLabel(): Unit = {
@@ -213,21 +208,28 @@ class GameController(
     timeline.stop() // Stop the timer
   }
 
-  // Pause the game
-  def pauseGame(): Unit = {
-    if (!isPaused) {
-      isPaused = true
-      timeline.pause() // Pause the timeline
-      // Additional UI updates or state changes for pause can be added here
-    }
-  }
-
-  // Resume the game
-  def resumeGame(): Unit = {
-    if (isPaused) {
-      isPaused = false
-      timeline.play() // Resume the timeline
-      // Additional UI updates or state changes for resume can be added here
-    }
-  }
+//  def togglePause(): Unit = {
+//    if (isPaused) {
+//      resumeGame()
+//    } else {
+//      pauseGame()
+//    }
+//    isPaused = !isPaused
+//  }
+//
+//  // Pause the game
+//  private def pauseGame(): Unit = {
+//      isPaused = true
+//      timeline.pause() // Pause the timeline
+//      scoreLabel.text = s"Paused \nScore: ${game.getScore}"
+//      rootPane.disable = true
+//  }
+//
+//  // Resume the game
+//  def resumeGame(): Unit = {
+//      isPaused = false
+//      timeline.play() // Resume the timeline
+//      scoreLabel.text = s"Score: ${game.getScore}"
+//      rootPane.disable = false
+//  }
 }

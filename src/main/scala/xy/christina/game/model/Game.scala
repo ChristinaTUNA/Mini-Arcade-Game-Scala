@@ -1,16 +1,14 @@
 package xy.christina.game.model
 
 import scala.collection.mutable.ListBuffer
-import scala.util.Random
 
 class Game(playerName: String) {
-  val player = new Player(playerName)
-  private val recipes = Recipe.allRecipes
-  private var currentRecipe = recipes.head
+  private val player = new Player(playerName)
+  private var currentRecipe = RecipeFactory.createRandomRecipe()
   private val currentInput = ListBuffer[String]()
   private val timer = new GameTimer(10) // Initial time for each recipe
 
-  def getCurrentRecipe: Recipe = currentRecipe
+  def getCurrentRecipe: RecipeType = currentRecipe
   def getLives: Int = player.lives.getLives
   def getScore: Int = player.score.getPoints
   def getCurrentInput: List[String] = currentInput.toList
@@ -54,8 +52,7 @@ class Game(playerName: String) {
   }
 
   def switchToNextRecipe(): Unit = {
-    val randomIndex = Random.nextInt(recipes.size)
-    currentRecipe = recipes(randomIndex)
+    currentRecipe = RecipeFactory.createRandomRecipe()
     timer.reset() // Reset timer for the new recipe
   }
 

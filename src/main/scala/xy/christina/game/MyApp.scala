@@ -6,7 +6,7 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
-import xy.christina.game.view.GameController
+import xy.christina.game.view.{GameController, RootLayoutController}
 
 object MyApp extends JFXApp{
   val rootResource = getClass.getResource(("view/RootLayout.fxml"))
@@ -40,16 +40,6 @@ object MyApp extends JFXApp{
     this.roots.setCenter(gamePage)
     control.initialize()
   }
-//
-//  def showScorePage(): Unit = {
-//    val resource = getClass.getResource("view/ScoreBoard.fxml")
-//    val loader = new FXMLLoader(resource, NoDependencyResolver)
-//    loader.load()
-//    val scorePage = loader.getRoot[jfxs.layout.Pane]
-//    val contentPane = roots.lookup("#contentPane").asInstanceOf[StackPane]
-//    contentPane.getChildren.clear()
-//    contentPane.getChildren.add(scorePage)
-//  }
 
 def showInstruction(): Unit = {
   val resource = getClass.getResource("view/Instruction.fxml")

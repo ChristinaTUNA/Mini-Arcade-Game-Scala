@@ -6,27 +6,11 @@ import scalafxml.core.macros.sfxml
 import xy.christina.game.MyApp
 
 @sfxml
-class RootLayoutController (
-                             private val pauseButton: Button
-                           ) {
-  private val gameController: Option[GameController] = None
-
+class RootLayoutController(
+                            private val pauseButton: Button
+                          ) {
   def handleQuitGame(action: ActionEvent): Unit = {
     MyApp.showHomePage()
   }
 
-//  def handlePauseGame(action: ActionEvent): Unit = {
-//    gameController.foreach { controller =>
-//      if (controller.getIsPaused) {
-//        controller.resumeGame()
-//        pauseButton.text = "Pause"
-//      } else {
-//        controller.pauseGame()
-//        pauseButton.text = "Resume"
-//      }
-//    }
-//  }
-  //  def handleAudio(): Unit = {
-  //
-  //  }
 }
