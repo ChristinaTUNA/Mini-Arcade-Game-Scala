@@ -6,10 +6,6 @@ class Lives(private var count: Int = 3) {
     if (count > 0) count -= 1
   }
 
-  def reset(lifeCount: Int = 3): Unit = {
-    count = lifeCount
-  }
-
   def getLives: Int = count
 
   def isDead: Boolean = count <= 0

@@ -1,5 +1,7 @@
 package xy.christina.game.model
 
+import xy.christina.game.util.GameTimer
+
 import scala.collection.mutable.ListBuffer
 
 class Game(playerName: String) {
@@ -30,9 +32,23 @@ class Game(playerName: String) {
     }
   }
 
+  def switchToNextRecipe(): Unit = {
+    currentRecipe = RecipeFactory.createRandomRecipe()
+    timer.resetTime() // Reset timer for the new recipe
+  }
+
+  def tickTimer(): Unit = {
+    timer.tick()
+    if (timer.isTimeUp) {
+      handleIncorrectInput()
+    }
+  }
+
+  def isGameOver: Boolean = player.lives.isDead
+
   private def getRecipeInput: List[String] = {
     currentRecipe.ingredients.flatMap { ingredient =>
-      List.fill(ingredient.quantity)(ingredient.name)
+      List.fill(ingredient.quantity)(ingredient.ingredientName)
     }
   }
 
@@ -48,20 +64,6 @@ class Game(playerName: String) {
   private def handleIncorrectInput(): Unit = {
     player.lives.loseLife()
     currentInput.clear()
-    timer.reset()
+    timer.resetTime()
   }
-
-  def switchToNextRecipe(): Unit = {
-    currentRecipe = RecipeFactory.createRandomRecipe()
-    timer.reset() // Reset timer for the new recipe
-  }
-
-  def tickTimer(): Unit = {
-    timer.tick()
-    if (timer.isTimeUp) {
-      handleIncorrectInput()
-    }
-  }
-
-  def isGameOver: Boolean = player.lives.isDead
 }

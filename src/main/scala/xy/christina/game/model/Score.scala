@@ -6,10 +6,6 @@ class Score(private var points: Int = 0) {
     points += amount
   }
 
-  def reset(): Unit = {
-    points = 0
-  }
-
   def getPoints: Int = points
 
   override def toString: String = s"Score: $points"

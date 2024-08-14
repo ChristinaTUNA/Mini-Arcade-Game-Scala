@@ -1,19 +1,15 @@
-package xy.christina.game.model
+package xy.christina.game.util
 
 class GameTimer(private var timeLimit: Int) {
   private var timeRemaining = timeLimit
-  private var isRunning = true
 
-  def pause(): Unit = {
-    isRunning = false
-  }
 
-  def reset(): Unit = {
+  def resetTime(): Unit = {
     timeRemaining = timeLimit
   }
 
   def tick(): Unit = {
-    if (isRunning && timeRemaining > 0) {
+    if (timeRemaining > 0) {
       timeRemaining -= 1
     }
   }
@@ -22,5 +18,4 @@ class GameTimer(private var timeLimit: Int) {
 
   def isTimeUp: Boolean = timeRemaining <= 0
 
-  def isTimerRunning: Boolean = isRunning
 }

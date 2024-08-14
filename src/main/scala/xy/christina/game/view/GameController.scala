@@ -68,11 +68,6 @@ class GameController(
     )
   }
 
-  // Update the timer label
-  private def updateTimerLabel(): Unit = {
-    timerLabel.text = s"${game.getTimer}"
-  }
-
   def initialize(): Unit = {
     setupButtonEvents()
     setupKeyEvents()
@@ -154,18 +149,6 @@ class GameController(
     }
   }
 
-  private def displayRecipeImage(): Unit = {
-    val recipeImage = new ImageView(RecipeImages(game.getCurrentRecipe.name))
-    recipeImage.fitWidth = 70
-    recipeImage.fitHeight = 70
-    displayRecipeGrid.getChildren.clear()
-    displayRecipeGrid.add(recipeImage, 0, 0)
-  }
-
-  private def hideRecipeImage(): Unit = {
-    displayRecipeGrid.getChildren.clear()
-  }
-
   // Update the current input grid with images
   private def updateCurrentInputGrid(): Unit = {
     currentInputGrid.getChildren.clear()
@@ -180,11 +163,27 @@ class GameController(
   // Update the view with the latest game state
   private def updateView(): Unit = {
     scoreLabel.text = s"Score: ${game.getScore}"
-    recipeLabel.text = s"${game.getCurrentRecipe.name}"
+    recipeLabel.text = s"${game.getCurrentRecipe.recipeName}"
     lifeLabel.text = s"Lives: ${game.getLives}"
     updateIngredientGrid()
     updateTimerLabel()
+  }
 
+  // Update the timer label
+  private def updateTimerLabel(): Unit = {
+    timerLabel.text = s"${game.getTimer}"
+  }
+
+  private def displayRecipeImage(): Unit = {
+    val recipeImage = new ImageView(RecipeImages(game.getCurrentRecipe.recipeName))
+    recipeImage.fitWidth = 70
+    recipeImage.fitHeight = 70
+    displayRecipeGrid.getChildren.clear()
+    displayRecipeGrid.add(recipeImage, 0, 0)
+  }
+
+  private def hideRecipeImage(): Unit = {
+    displayRecipeGrid.getChildren.clear()
   }
 
   // Update the ingredient grid
@@ -194,7 +193,7 @@ class GameController(
     game.getCurrentRecipe.ingredients.zipWithIndex.foreach { case (ingredient, index) =>
       val row = index
       val col1 = new Label(s"x${ingredient.quantity}")
-      val col2 = new Label(ingredient.name)
+      val col2 = new Label(ingredient.ingredientName)
       ingredientGrid.add(col1, 0, row)
       ingredientGrid.add(col2, 1, row)
     }
@@ -207,29 +206,4 @@ class GameController(
     rootPane.disable = true // Disable further interaction
     timeline.stop() // Stop the timer
   }
-
-//  def togglePause(): Unit = {
-//    if (isPaused) {
-//      resumeGame()
-//    } else {
-//      pauseGame()
-//    }
-//    isPaused = !isPaused
-//  }
-//
-//  // Pause the game
-//  private def pauseGame(): Unit = {
-//      isPaused = true
-//      timeline.pause() // Pause the timeline
-//      scoreLabel.text = s"Paused \nScore: ${game.getScore}"
-//      rootPane.disable = true
-//  }
-//
-//  // Resume the game
-//  def resumeGame(): Unit = {
-//      isPaused = false
-//      timeline.play() // Resume the timeline
-//      scoreLabel.text = s"Score: ${game.getScore}"
-//      rootPane.disable = false
-//  }
 }

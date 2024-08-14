@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Roti Maker.iml" filepath="$PROJECT_DIR$/.idea/modules/Roti Maker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Roti Maker.Roti Maker-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Roti Maker.Roti Maker-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Roti Baker.iml" filepath="$PROJECT_DIR$/.idea/modules/Roti Baker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Roti Baker.Roti Baker-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Roti Baker.Roti Baker-build.iml" />
     </modules>
   </component>
 </project>

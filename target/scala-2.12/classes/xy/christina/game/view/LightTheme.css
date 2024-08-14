@@ -2,7 +2,7 @@
 
 
 .home-background {
-    -fx-background-image: url("/image/test2.png");
+    -fx-background-image: url("/image/home-bg.gif");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
